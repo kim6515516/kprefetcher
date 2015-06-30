@@ -1,0 +1,21 @@
+<data>
+
+<content id="0">
+<fd>50</fd>
+<where>"/root/abc"</where>
+<start>0</start>
+<end>4096</end>
+<type>0</type>
+</content>
+
+
+<content id="1">
+<fd>40</fd>
+<where>"/root/ttty"</where>
+<start>1024</start>
+<end>3000</end>
+<type>1</type>
+</content>
+
+
+</data>
