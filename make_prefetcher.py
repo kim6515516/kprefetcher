@@ -20,6 +20,7 @@ convertfile.write("#include <unistd.h>\n");
 convertfile.write("#include <sys/types.h>\n");
 convertfile.write("\n\n");
 convertfile.write("int main(void) { \n")
+
 for row in reader:
 	#print row
 	cells = list(row)
@@ -27,12 +28,9 @@ for row in reader:
 	if len(cells) != 0:
 		loglist.append(cells)
 	
-
-
 for i in loglist:
 	print i
 	
-
 # part1. open
 
 for i in loglist:
@@ -40,12 +38,12 @@ for i in loglist:
 	cells = i
 	if fdlist.has_key(cells[2]) == False :	
 		convertfile.write("\n");
-		convertfile.write("\tint fd"+ str(fdnumber) + " = open(\"" + cells[2] + "\", 'r');\n")
+		convertfile.write("\tint fd"+ str(fdnumber) + " = open(\"" + cells[2] + "\", O_RDONLY);\n")
 		convertfile.write("\tposix_fadvise(fd" + str(fdnumber) + ", " + str(cells[3]) + ", " + str(cells[4]) + ", POSIX_FADV_NOREUSE);\n" )
 		fdlist[cells[2]] = fdnumber
 		fdnumber = fdnumber + 1
 	else :
-		convertfile.write("\tposix_fadvise(fd" + str(fdlist[cells[2]]) + "," + str(cells[3]) + "," + str(cells[4]) + ", POSIX_FADV_NOREUSE);\n" )
+		convertfile.write("\tposix_fadvise(fd" + str(fdlist[cells[2]]) + ", " + str(cells[3]) + ", " + str(cells[4]) + ", POSIX_FADV_NOREUSE);\n" )
 
 
 
@@ -57,5 +55,5 @@ for fd in range(0, fdnumber) :
 
 
 
-convertfile.write("\treturn 0;\n")
+convertfile.write("\n\treturn 0;\n")
 convertfile.write("}")
